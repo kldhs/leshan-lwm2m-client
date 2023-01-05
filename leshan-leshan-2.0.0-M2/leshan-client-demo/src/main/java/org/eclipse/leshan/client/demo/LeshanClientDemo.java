@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import cn.hutool.json.JSONUtil;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -146,7 +147,7 @@ public class LeshanClientDemo {
     private static MyLocation locationInstance;
 
     public static void main(final String[] args) {
-        LOG.debug("11111111111111111111");
+
 
         // Define options for command line tools
         Options options = new Options();
@@ -405,7 +406,7 @@ public class LeshanClientDemo {
             else
                 serverURI = "coap://localhost:" + LwM2m.DEFAULT_COAP_PORT;
         }
-
+        //serverURI = "coap://115.159.97.250:" + LwM2m.DEFAULT_COAP_PORT;
         // get PSK info
         byte[] pskIdentity = null;
         byte[] pskKey = null;
@@ -828,9 +829,15 @@ public class LeshanClientDemo {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
+                LOG.error("服务关闭---->> "+"注销客户端");
                 client.destroy(true); // send de-registration request before destroy
             }
         });
+
+
+        //Thread.sleep(5000);
+        //client.destroy(true);
+
 
         // Change the location through the Console
         try (Scanner scanner = new Scanner(System.in)) {
@@ -880,6 +887,8 @@ public class LeshanClientDemo {
                 }
             }
         }
+
+
     }
 
 

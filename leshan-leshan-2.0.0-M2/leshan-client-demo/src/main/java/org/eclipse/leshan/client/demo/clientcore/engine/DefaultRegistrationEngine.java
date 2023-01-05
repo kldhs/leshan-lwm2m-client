@@ -384,6 +384,7 @@ public class DefaultRegistrationEngine implements RegistrationEngine {
             if (observer != null) {
                 observer.onDeregistrationStarted(server, request);
             }
+            LOG.error("发送---->> "+"注销发送请求，request : {}", JSONUtil.toJsonStr(request));
             DeregisterResponse response = sender.send(server, request, deregistrationTimeoutInMs);
             if (response == null) {
                 registrationID = null;
